@@ -23,6 +23,14 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      # Aquí añadimos el paso para verificar la versión de Java
+      - name: Check Java version
+        run: java -version
+
+      # Aquí añadimos el paso para asegurar que JAVA_HOME apunte a JDK 17
+      - name: Set JAVA_HOME to JDK 17
+        run: echo "JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))" >> $GITHUB_ENV
+
       - name: Cache SonarScanner packages
         uses: actions/cache@v2
         with:
