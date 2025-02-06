@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Test Echo
+        run: echo "Prueba rápida con echo"
+
       - name: Checkout code
         uses: actions/checkout@v4
 
