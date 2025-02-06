@@ -1,4 +1,4 @@
-name: SonarQube Analysis
+name: SonarCloud Analysis
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   sonarQube:
-    name: SonarQube Analysis
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
 
     steps:
@@ -35,20 +35,14 @@ jobs:
           unzip sonar-scanner-cli-4.8.0.2856-linux.zip -d $HOME
           echo "$HOME/sonar-scanner-4.8.0.2856-linux/bin" >> $GITHUB_PATH
 
-      - name: Start SonarQube
-        run: |
-          docker run -d --name sonarqube -p 9000:9000 sonarqube:lts
-          
-      - name: Wait for SonarQube to be ready
-        run: sleep 30
-
       - name: Run SonarScanner
         env:
-          SONAR_HOST_URL: http://localhost:9000
+          SONAR_HOST_URL: https://sonarcloud.io
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=taller-sonarq1 \
+            -Dsonar.projectKey=stephanie-mtz_TutorialInicio \
+            -Dsonar.organization=stephanie-mtz \
             -Dsonar.sources=. \
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_TOKEN
